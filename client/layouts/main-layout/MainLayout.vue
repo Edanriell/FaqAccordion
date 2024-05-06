@@ -1,14 +1,14 @@
 <script setup lang="ts"></script>
 
 <template>
-	<main class="bg-blue-chalk-100 w-full min-h-[100vh]">
+	<main class="bg-blue-chalk-100 min-w-full min-h-[100vh] flex justify-center items-start">
 		<svg
 			width="375"
 			height="232"
 			viewBox="0 0 375 232"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			class="w-full block md:hidden"
+			class="w-full block md:hidden absolute z-1"
 			preserveAspectRatio="xMinYMin slice"
 		>
 			<g clip-path="url(#clip0_28_57)">
@@ -32,7 +32,7 @@
 			viewBox="0 0 1440 320"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			class="w-full hidden md:block"
+			class="w-full hidden md:block absolute z-1"
 			preserveAspectRatio="xMinYMin slice"
 		>
 			<g clip-path="url(#clip0_28_37)">

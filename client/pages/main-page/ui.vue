@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 <template>
-	<section>
-		<header class="flex flex-row items-center justify-center gap-x-[2.4rem]">
+	<section
+		class="shadow-page rounded-[0.8rem] p-[2.4rem] w-full max-w-[32.7rem] bg-white-50 mx-[2.4rem] mt-[14.25rem] z-10"
+	>
+		<header class="flex flex-row items-center justify-start gap-x-[2.4rem] mb-[2.4rem]">
 			<svg
 				width="24"
 				height="25"
@@ -14,7 +16,9 @@
 					fill="#AD28EB"
 				/>
 			</svg>
-			<h1>Faq<span>s</span></h1>
+			<h1 class="font-workSans font-bold text-[3.2rem] text-revolver-950 uppercase">
+				Faq<span class="lowercase">s</span>
+			</h1>
 		</header>
 	</section>
 </template>
