@@ -80,6 +80,9 @@ module.exports = {
 					900: "#3d3d3d",
 					950: "#292929"
 				}
+			},
+			boxShadow: {
+				page: "0 32px 56px 0 rgba(80, 0, 118, 0.1)"
 			}
 		}
 	},
