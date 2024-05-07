@@ -6,61 +6,89 @@
 		textContent: string;
 	}>;
 
-	defineProps<{
+	type ActiveAccordions = "single" | "multiple";
+
+	const accordionProps = defineProps<{
 		data: AccordionData;
+		activeAccordions: ActiveAccordions;
 	}>();
+
+	const currentlyActiveAccordions: Array<number> = reactive([]);
 
 	const activeAccordion = ref<number | null>(null);
 
-	const onMouseEnter = (index: number) => {
+	const handleButtonMouseEnter = (index: number) => {
+		changeAccordionButtonTextColor(index);
+	};
+
+	const handleButtonMouseLeave = (index: number) => {
+		invertChangeAccordionButtonTextColor(index);
+	};
+
+	const handleButtonTouchStart = (index: number) => {
+		changeAccordionButtonTextColor(index);
+	};
+
+	const handleButtonTouchEnd = (index: number) => {
+		invertChangeAccordionButtonTextColor(index);
+	};
+
+	const handleButtonClick = (index: number) => {
+		toggleAccordion(index);
+	};
+
+	const handleButtonTap = (index: number) => {
+		toggleAccordion(index);
+	};
+
+	const changeAccordionButtonTextColor = (index: number) => {
 		gsap.to(`.accordion-button-${index}`, {
 			color: "#ad28eb",
 			duration: 0.25
 		});
 	};
 
-	const onMouseLeave = (index: number) => {
+	const invertChangeAccordionButtonTextColor = (index: number) => {
 		gsap.to(`.accordion-button-${index}`, {
 			color: "#301534",
 			duration: 0.5
 		});
 	};
 
-	const onTouchStart = (index: number) => {
-		gsap.to(`.accordion-button-${index}`, {
-			color: "#ad28eb",
-			duration: 0.25,
-			ease: "power2"
-		});
-	};
-
-	const onTouchEnd = (index: number) => {
-		gsap.to(`.accordion-button-${index}`, {
-			color: "#301534",
-			duration: 0.5,
-			ease: "power2"
-		});
-	};
-
-	const onClick = (index: number) => {
-		if (activeAccordion.value === index) {
-			// Close the clicked accordion if it's already open
-			activeAccordion.value = null;
-			closeAccordion(index);
-		} else {
-			if (activeAccordion.value !== null) {
-				// Close the currently open accordion
-				const prevIndex = activeAccordion.value;
+	const toggleAccordion = (index: number) => {
+		if (accordionProps.activeAccordions === "single") {
+			if (activeAccordion.value === index) {
+				// Close the clicked accordion if it's already open
 				activeAccordion.value = null;
-				closeAccordion(prevIndex);
+				closeAccordion(index);
+			} else {
+				if (activeAccordion.value !== null) {
+					const prevIndex = activeAccordion.value;
+					activeAccordion.value = null;
+					closeAccordion(prevIndex);
+					// Close the currently open accordion
+				}
+				// Open the clicked accordion
+				activeAccordion.value = index;
+				openAccordion(index);
 			}
-			// Open the clicked accordion
-			activeAccordion.value = index;
-			openAccordion(index);
+		}
+
+		if (accordionProps.activeAccordions === "multiple") {
+			console.log(currentlyActiveAccordions);
+			const accordionIndex = currentlyActiveAccordions.indexOf(index);
+			if (accordionIndex !== -1) {
+				// Accordion is already active, so remove it
+				currentlyActiveAccordions.splice(accordionIndex, 1);
+				closeAccordion(index);
+			} else {
+				// Accordion is not active, so add it
+				currentlyActiveAccordions.push(index);
+				openAccordion(index);
+			}
+			console.log(currentlyActiveAccordions);
 		}
 	};
-
-	const onTap = (index: number) => {};
 
 	const openAccordion = (index: number) => {
 		gsap.to(`.accordion-circle-${index}`, {
@@ -138,19 +166,19 @@
 
 <template>
 	<ul class="flex flex-col">
-		<li class="grid overflow-hidden" v-for="(accordionItem, index) in data">
+		<li class="grid overflow-hidden relative" v-for="(accordionItem, index) in data">
 			<button
-				@mouseenter="onMouseEnter(index)"
-				@mouseleave="onMouseLeave(index)"
-				@touchstart="onTouchStart(index)"
-				@touchend="onTouchEnd(index)"
-				@click="onClick(index)"
-				@tap="onTap(index)"
+				@mouseenter="handleButtonMouseEnter(index)"
+				@mouseleave="handleButtonMouseLeave(index)"
+				@touchstart="handleButtonTouchStart(index)"
+				@touchend="handleButtonTouchEnd(index)"
+				@click="handleButtonClick(index)"
+				@tap="handleButtonTap(index)"
 				type="button"
 				:class="
 					'accordion-button-' +
 					index +
-					' flex flex-row items-center gap-x-[2.4rem] justify-between font-workSans font-semibold text-[1.6rem] md:text-[1.8rem] text-revolver-950 text-left'
+					' flex flex-row items-center gap-x-[2.4rem] justify-between font-workSans font-semibold text-[1.6rem] md:text-[1.8rem] text-revolver-950 text-left z-20'
 				"
 			>
 				{{ accordionItem.buttonName }}
@@ -181,13 +209,13 @@
 				:class="
 					'accordion-text-content-' +
 					index +
-					' font-workSans font-normal text-[1.4rem] md:text-[1.6rem] text-left text-trendy-pink-600 pt-[2.4rem] h-[0] hidden overflow-hidden'
+					' font-workSans font-normal text-[1.4rem] md:text-[1.6rem] text-left text-trendy-pink-600 pt-[2.4rem] h-[0] hidden overflow-hidden z-10'
 				"
 			>
 				{{ accordionItem.textContent }}
 			</p>
 			<span
-				class="block w-full h-[0.1rem] bg-blue-chalk-100 my-[2rem] md:my-[2.4rem]"
+				class="block w-full h-[0.1rem] bg-blue-chalk-100 my-[2rem] md:my-[2.4rem] z-10"
 				v-if="data.length > 1 && data.length !== index + 1"
 			></span>
 		</li>

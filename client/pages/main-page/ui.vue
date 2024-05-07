@@ -64,6 +64,6 @@
 				Faq<span class="lowercase">s</span>
 			</h1>
 		</header>
-		<Accordion :data="accordionData" />
+		<Accordion :data="accordionData" active-accordions="single" />
 	</section>
 </template>
