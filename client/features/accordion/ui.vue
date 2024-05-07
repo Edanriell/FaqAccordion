@@ -146,17 +146,15 @@
 				@touchend="onTouchEnd(index)"
 				@click="onClick(index)"
 				@tap="onTap(index)"
-				ref="buttonRef"
 				type="button"
 				:class="
 					'accordion-button-' +
 					index +
-					' flex flex-row items-center gap-x-[2.4rem] justify-between font-workSans font-semibold text-[1.6rem] text-revolver-950 text-left'
+					' flex flex-row items-center gap-x-[2.4rem] justify-between font-workSans font-semibold text-[1.6rem] md:text-[1.8rem] text-revolver-950 text-left'
 				"
 			>
 				{{ accordionItem.buttonName }}
 				<span
-					ref="circleRef"
 					:class="
 						'accordion-circle-' +
 						index +
@@ -164,7 +162,6 @@
 					"
 				>
 					<span
-						ref="horizontalLineRef"
 						:class="
 							'accordion-horizontal-line-' +
 							index +
@@ -172,7 +169,6 @@
 						"
 					></span>
 					<span
-						ref="verticalLineRef"
 						:class="
 							'accordion-vertical-line-' +
 							index +
@@ -182,17 +178,16 @@
 				</span>
 			</button>
 			<p
-				ref="textContentRef"
 				:class="
 					'accordion-text-content-' +
 					index +
-					' font-workSans font-normal text-[1.4rem] text-left text-trendy-pink-600 pt-[2.4rem] h-[0] hidden overflow-hidden'
+					' font-workSans font-normal text-[1.4rem] md:text-[1.6rem] text-left text-trendy-pink-600 pt-[2.4rem] h-[0] hidden overflow-hidden'
 				"
 			>
 				{{ accordionItem.textContent }}
 			</p>
 			<span
-				class="block w-full h-[0.1rem] bg-blue-chalk-100 my-[2rem]"
+				class="block w-full h-[0.1rem] bg-blue-chalk-100 my-[2rem] md:my-[2.4rem]"
 				v-if="data.length > 1 && data.length !== index + 1"
 			></span>
 		</li>

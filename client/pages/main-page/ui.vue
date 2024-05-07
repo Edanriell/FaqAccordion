@@ -27,9 +27,11 @@
 
 <template>
 	<section
-		class="shadow-page rounded-[0.8rem] md:rounded-[1.6rem] p-[2.4rem] md:p-[4rem] w-full max-w-[32.7rem] md:max-w-[60rem] bg-white-50 mx-[2.4rem] mt-[14.25rem] md:mt-[16.75rem] z-10"
+		class="shadow-page rounded-[0.8rem] md:rounded-[1.6rem] p-[2.4rem] md:p-[4rem] w-full max-w-[32.7rem] md:max-w-[60rem] bg-white-50 mx-[2.4rem] mt-[14.25rem] md:mt-[16.75rem] mb-[14.25rem] md:mb-[16.75rem] z-10"
 	>
-		<header class="flex flex-row items-center justify-start gap-x-[2.4rem] mb-[2.4rem]">
+		<header
+			class="flex flex-row items-center justify-start gap-x-[2.4rem] mb-[2.4rem] md:mb-[3.2rem]"
+		>
 			<svg
 				width="24"
 				height="25"
