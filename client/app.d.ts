@@ -1,1 +1,2 @@
-declare module "accordion";
+declare module "@features";
+declare module "@pages";
