@@ -10,6 +10,8 @@
 		data: AccordionData;
 	}>();
 
+	const activeAccordion = ref<number | null>(null);
+
 	const onMouseEnter = (index: number) => {
 		gsap.to(`.accordion-button-${index}`, {
 			color: "#ad28eb",
@@ -41,6 +43,26 @@
 	};
 
 	const onClick = (index: number) => {
+		if (activeAccordion.value === index) {
+			// Close the clicked accordion if it's already open
+			activeAccordion.value = null;
+			closeAccordion(index);
+		} else {
+			if (activeAccordion.value !== null) {
+				// Close the currently open accordion
+				const prevIndex = activeAccordion.value;
+				activeAccordion.value = null;
+				closeAccordion(prevIndex);
+			}
+			// Open the clicked accordion
+			activeAccordion.value = index;
+			openAccordion(index);
+		}
+	};
+
+	const onTap = (index: number) => {};
+
+	const openAccordion = (index: number) => {
 		gsap.to(`.accordion-circle-${index}`, {
 			backgroundColor: "#301534",
 			duration: 0.25,
@@ -60,13 +82,63 @@
 			duration: 0.25,
 			ease: "power2"
 		});
+
+		gsap.set(`.accordion-text-content-${index}`, {
+			display: "block",
+			opacity: 0,
+			paddingTop: "24px",
+			translateY: "-24px"
+		});
+
+		gsap.to(`.accordion-text-content-${index}`, {
+			translateY: "0px",
+			height: "auto",
+			opacity: 1,
+			duration: 0.25,
+			ease: "power2"
+		});
 	};
-	const onTap = (index: number) => {};
+
+	const closeAccordion = (index: number) => {
+		gsap.to(`.accordion-circle-${index}`, {
+			backgroundColor: "#ad28eb",
+			duration: 0.25,
+			ease: "power2"
+		});
+
+		gsap.to(`.accordion-horizontal-line-${index}`, {
+			rotate: "+=90",
+			scale: 1,
+			opacity: 1,
+			duration: 0.25,
+			ease: "power2"
+		});
+
+		gsap.to(`.accordion-vertical-line-${index}`, {
+			rotate: "+=90",
+			duration: 0.25,
+			ease: "power2"
+		});
+
+		gsap.to(`.accordion-text-content-${index}`, {
+			height: 0,
+			opacity: 0,
+			duration: 0.25,
+			ease: "power2",
+			paddingTop: "0px",
+			onComplete: () => {
+				gsap.set(`.accordion-text-content-${index}`, {
+					display: "none",
+					paddingTop: "24px"
+				});
+			}
+		});
+	};
 </script>
 
 <template>
 	<ul class="flex flex-col">
-		<li class="grid" v-for="(accordionItem, index) in data">
+		<li class="grid overflow-hidden" v-for="(accordionItem, index) in data">
 			<button
 				@mouseenter="onMouseEnter(index)"
 				@mouseleave="onMouseLeave(index)"
@@ -114,7 +186,7 @@
 				:class="
 					'accordion-text-content-' +
 					index +
-					' font-workSans font-normal text-[1.4rem] text-left text-trendy-pink-600 mt-[2.4rem]'
+					' font-workSans font-normal text-[1.4rem] text-left text-trendy-pink-600 pt-[2.4rem] h-[0] hidden overflow-hidden'
 				"
 			>
 				{{ accordionItem.textContent }}
