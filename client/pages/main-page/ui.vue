@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { Accordion } from "~/features/accordion";
+	import { Accordion } from "@features";
 
 	const accordionData = [
 		{
