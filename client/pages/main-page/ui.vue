@@ -10,18 +10,16 @@
 		},
 		{
 			buttonName: "Is Frontend Mentor free?",
-			textContent:
-				"Frontend Mentor offers realistic coding challenges to help developers improve their frontend coding skills with projects in HTML, CSS, and JavaScript. It’s suitable for all levels and ideal for portfolio building."
+			textContent: "Yes, Frontend Mentor is free to use."
 		},
 		{
 			buttonName: "Can I use Frontend Mentor projects in my portfolio?",
-			textContent:
-				"Frontend Mentor offers realistic coding challenges to help developers improve their frontend coding skills with projects in HTML, CSS, and JavaScript. It’s suitable for all levels and ideal for portfolio building."
+			textContent: "Yes, you can use Frontend Mentor projects in your portfolio."
 		},
 		{
 			buttonName: "How can I get help if I'm stuck on a challenge?",
 			textContent:
-				"Frontend Mentor offers realistic coding challenges to help developers improve their frontend coding skills with projects in HTML, CSS, and JavaScript. It’s suitable for all levels and ideal for portfolio building."
+				"Frontend Mentor provides various resources to help you if you're stuck on a challenge. You can refer to the solution guides, join the community forum, or reach out to the support team for assistance."
 		}
 	];
 </script>
