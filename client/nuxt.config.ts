@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 		"@shared": fileURLToPath(new URL("./shared", import.meta.url)),
 		"@shared/ui": fileURLToPath(new URL("./shared/ui", import.meta.url))
 	},
-	modules: [],
+	modules: ["@nuxt/eslint"],
 	css: ["@/app/styles/styles.scss"],
 	dir: {
 		pages: "routes"
