@@ -1,5 +1,10 @@
 <script setup lang="ts">
-	import gsap from "gsap";
+	import {
+		changeAccordionButtonTextColor,
+		invertChangeAccordionButtonTextColor,
+		openAccordion,
+		closeAccordion
+	} from "./model";
 
 	type AccordionData = Array<{
 		buttonName: string;
@@ -14,7 +19,6 @@
 	}>();
 
 	const currentlyActiveAccordions: Array<number> = reactive([]);
-
 	const activeAccordion = ref<number | null>(null);
 
 	const handleButtonMouseEnter = (index: number) => {
@@ -41,20 +45,6 @@
 		toggleAccordion(index);
 	};
 
-	const changeAccordionButtonTextColor = (index: number) => {
-		gsap.to(`.accordion-button-${index}`, {
-			color: "#ad28eb",
-			duration: 0.25
-		});
-	};
-
-	const invertChangeAccordionButtonTextColor = (index: number) => {
-		gsap.to(`.accordion-button-${index}`, {
-			color: "#301534",
-			duration: 0.5
-		});
-	};
-
 	const toggleAccordion = (index: number) => {
 		if (accordionProps.activeAccordions === "single") {
 			if (activeAccordion.value === index) {
@@ -75,7 +65,6 @@
 		}
 
 		if (accordionProps.activeAccordions === "multiple") {
-			console.log(currentlyActiveAccordions);
 			const accordionIndex = currentlyActiveAccordions.indexOf(index);
 			if (accordionIndex !== -1) {
 				// Accordion is already active, so remove it
@@ -86,81 +75,7 @@
 				currentlyActiveAccordions.push(index);
 				openAccordion(index);
 			}
-			console.log(currentlyActiveAccordions);
 		}
-	};
-
-	const openAccordion = (index: number) => {
-		gsap.to(`.accordion-circle-${index}`, {
-			backgroundColor: "#301534",
-			duration: 0.25,
-			ease: "power2"
-		});
-
-		gsap.to(`.accordion-horizontal-line-${index}`, {
-			rotate: "+=90",
-			scale: 0,
-			opacity: 0,
-			duration: 0.25,
-			ease: "power2"
-		});
-
-		gsap.to(`.accordion-vertical-line-${index}`, {
-			rotate: "+=90",
-			duration: 0.25,
-			ease: "power2"
-		});
-
-		gsap.set(`.accordion-text-content-${index}`, {
-			display: "block",
-			opacity: 0,
-			paddingTop: "24px",
-			translateY: "-24px"
-		});
-
-		gsap.to(`.accordion-text-content-${index}`, {
-			translateY: "0px",
-			height: "auto",
-			opacity: 1,
-			duration: 0.25,
-			ease: "power2"
-		});
-	};
-
-	const closeAccordion = (index: number) => {
-		gsap.to(`.accordion-circle-${index}`, {
-			backgroundColor: "#ad28eb",
-			duration: 0.25,
-			ease: "power2"
-		});
-
-		gsap.to(`.accordion-horizontal-line-${index}`, {
-			rotate: "+=90",
-			scale: 1,
-			opacity: 1,
-			duration: 0.25,
-			ease: "power2"
-		});
-
-		gsap.to(`.accordion-vertical-line-${index}`, {
-			rotate: "+=90",
-			duration: 0.25,
-			ease: "power2"
-		});
-
-		gsap.to(`.accordion-text-content-${index}`, {
-			height: 0,
-			opacity: 0,
-			duration: 0.25,
-			ease: "power2",
-			paddingTop: "0px",
-			onComplete: () => {
-				gsap.set(`.accordion-text-content-${index}`, {
-					display: "none",
-					paddingTop: "24px"
-				});
-			}
-		});
 	};
 </script>
 
