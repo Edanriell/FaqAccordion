@@ -80,59 +80,63 @@
 </script>
 
 <template>
-	<ul class="flex flex-col">
-		<li class="grid overflow-hidden relative" v-for="(accordionItem, index) in data">
-			<button
-				@mouseenter="handleButtonMouseEnter(index)"
-				@mouseleave="handleButtonMouseLeave(index)"
-				@touchstart="handleButtonTouchStart(index)"
-				@touchend="handleButtonTouchEnd(index)"
-				@click="handleButtonClick(index)"
-				@tap="handleButtonTap(index)"
-				type="button"
-				:class="
-					'accordion-button-' +
-					index +
-					' flex flex-row items-center gap-x-[2.4rem] justify-between font-workSans font-semibold text-[1.6rem] md:text-[1.8rem] text-revolver-950 text-left z-20'
-				"
-			>
-				{{ accordionItem.buttonName }}
-				<span
+	<dl class="flex flex-col">
+		<div class="overflow-hidden block" v-for="(accordionItem, index) in data">
+			<dt class="grid relative">
+				<button
+					@mouseenter="handleButtonMouseEnter(index)"
+					@mouseleave="handleButtonMouseLeave(index)"
+					@touchstart="handleButtonTouchStart(index)"
+					@touchend="handleButtonTouchEnd(index)"
+					@click="handleButtonClick(index)"
+					@tap="handleButtonTap(index)"
+					type="button"
 					:class="
-						'accordion-circle-' +
+						'accordion-button-' +
 						index +
-						' w-[2.5rem] h-[2.5rem] rounded-full bg-electric-violet-600 flex-shrink-0 flex-grow-0 block relative z-10'
+						' flex flex-row items-center gap-x-[2.4rem] justify-between font-workSans font-semibold text-[1.6rem] md:text-[1.8rem] text-revolver-950 text-left z-20'
 					"
 				>
+					{{ accordionItem.buttonName }}
 					<span
 						:class="
-							'accordion-horizontal-line-' +
+							'accordion-circle-' +
 							index +
-							' w-[1.1rem] h-[0.2rem] bg-blue-chalk-100 block z-20 absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] rounded-full'
+							' w-[2.5rem] h-[2.5rem] rounded-full bg-electric-violet-600 flex-shrink-0 flex-grow-0 block relative z-10'
 						"
-					></span>
-					<span
-						:class="
-							'accordion-vertical-line-' +
-							index +
-							' w-[1.1rem] h-[0.2rem] bg-blue-chalk-100 block z-20 absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] rotate-[90deg] rounded-full'
-						"
-					></span>
-				</span>
-			</button>
-			<p
-				:class="
-					'accordion-text-content-' +
-					index +
-					' font-workSans font-normal text-[1.4rem] md:text-[1.6rem] text-left text-trendy-pink-600 pt-[2.4rem] h-[0] hidden overflow-hidden z-10'
-				"
-			>
-				{{ accordionItem.textContent }}
-			</p>
-			<span
+					>
+						<span
+							:class="
+								'accordion-horizontal-line-' +
+								index +
+								' w-[1.1rem] h-[0.2rem] bg-blue-chalk-100 block z-20 absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] rounded-full'
+							"
+						></span>
+						<span
+							:class="
+								'accordion-vertical-line-' +
+								index +
+								' w-[1.1rem] h-[0.2rem] bg-blue-chalk-100 block z-20 absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] rotate-[90deg] rounded-full'
+							"
+						></span>
+					</span>
+				</button>
+			</dt>
+			<dd class="relative">
+				<p
+					:class="
+						'accordion-text-content-' +
+						index +
+						' font-workSans font-normal text-[1.4rem] md:text-[1.6rem] text-left text-trendy-pink-600 pt-[2.4rem] h-[0] hidden overflow-hidden z-10'
+					"
+				>
+					{{ accordionItem.textContent }}
+				</p>
+			</dd>
+			<div
 				class="block w-full h-[0.1rem] bg-blue-chalk-100 my-[2rem] md:my-[2.4rem] z-10"
 				v-if="data.length > 1 && data.length !== index + 1"
-			></span>
-		</li>
-	</ul>
+			></div>
+		</div>
+	</dl>
 </template>
